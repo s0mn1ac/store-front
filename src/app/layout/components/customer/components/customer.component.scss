@@ -1,0 +1,57 @@
+@import "../../../../../assets/scss/shared.scss";
+
+:host ::ng-deep .customer-layout {
+    height: 100%;
+
+    .table-container {
+        height: 100%;
+
+        .p-datatable {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+            .p-datatable-wrapper {
+                height: 100%;
+
+                th, td {
+
+                    &.id {
+                        width: 5rem;
+                        text-align: center;
+                    }
+
+                    &.document {
+                        width: 10rem;
+                    }
+
+                    &.name {
+                        width: 20rem;
+                    }
+
+                    &.lastname {
+                        width: 20rem;
+                    }
+
+                    &.birthdate {
+                        width: 15rem;
+                    }
+
+                    &.email {
+                        width: 15rem;
+                    }
+
+                    &.modify {
+                        width: 5rem;
+                        text-align: center;
+                    }
+
+                    &.delete {
+                        width: 5rem;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+}

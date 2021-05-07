@@ -1,0 +1,79 @@
+<div class="customer-layout flex-column">
+
+    <div class="table-container">
+
+        <p-table #cutomersTable [value]="customers" dataKey="id" [rowHover]="true"
+            [rows]="10" [showCurrentPageReport]="true" [paginator]="true"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} clientes">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="id">
+                        <span> ID </span>
+                    </th>
+                    <th class="document">
+                        <span> Documento </span>
+                    </th>
+                    <th class="name">
+                        <span> Nombre </span>
+                    </th>
+                    <th class="lastname">
+                        <span> Apellidos </span>
+                    </th>
+                    <th class="birthdate">
+                        <span> Fecha de nacimiento </span>
+                    </th>
+                    <th class="email">
+                        <span> E-mail </span>
+                    </th>
+                    <th class="modify">
+                        <span> Editar </span>
+                    </th>
+                    <th class="delete">
+                        <span> Eliminar </span>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-customer>
+                <tr class="p-selectable-row">
+                    <td class="id">
+                        <span> {{ customer.id }} </span>
+                    </td>
+                    <td class="document">
+                        <span> {{ customer.document }} </span>
+                    </td>
+                    <td class="name">
+                        <span> {{ customer.name }} </span>
+                    </td>
+                    <td class="lastname">
+                        <span> {{ customer.lastname }} </span>
+                    </td>
+                    <td class="birthdate">
+                        <span> {{ customer.birthdate.toLocaleDateString('es-ES') }} </span>
+                    </td>
+                    <td class="email">
+                        <span> {{ customer.email }} </span>
+                    </td>
+                    <td class="modify">
+                        <button pButton pRipple type="button" icon="pi pi-user-edit" (click)="onClickModifyCustomer(customer)" class="p-button-warning"></button>
+                    </td>
+                    <td class="delete">
+                        <button pButton pRipple type="button" icon="pi pi-trash" (click)="onClickDeleteCustomer(customer)" class="p-button-danger"></button>
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="6"> Aún no hay clientes registrados... </td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+
+    </div>
+
+    <app-customer-modal #customerModal (appOnApplyChanges)="getAllCustomers()"></app-customer-modal>
+
+</div>

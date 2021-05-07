@@ -1,0 +1,14 @@
+@import "../../../../assets/scss/shared.scss";
+
+.header-layout {
+
+    .header-container {
+        width: 100%;
+        padding: 5px;
+        background-color: $material-dark;
+
+        .custom-button {
+            margin: 5px;
+        }
+    }
+}

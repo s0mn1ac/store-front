@@ -1,0 +1,35 @@
+<p-dialog header="Cliente" [(visible)]="isDialogVisible" [baseZIndex]="10000" [modal]="true" [closable]="false">
+
+    <div class="content-container flex-row">
+
+        <div class="first-column flex-column">
+
+            <h5> Nombre </h5>
+            <input type="text" pInputText [(ngModel)]="customer.name" />
+            
+            <h5> Apellidos </h5>
+            <input type="text" pInputText [(ngModel)]="customer.lastname" />
+
+            <h5> E-mail </h5>
+            <input type="text" pInputText [(ngModel)]="customer.email" />
+
+            <h5> Documento </h5>
+            <input type="text" pInputText [(ngModel)]="customer.document" />
+
+        </div>
+
+        <div class="second-column flex-column">
+
+            <h5> Fecha de nacimiento </h5>
+            <p-calendar [inline]="true" [locale]="calendarProperties" [showWeek]="true" [(ngModel)]="customer.birthdate" ></p-calendar>
+            
+        </div>
+
+    </div>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" label="Cancelar" (click)="onClickCancel()" class="p-button-danger p-button-text"></button>
+        <button pButton pRipple type="button" label="Aplicar" (click)="onClickApply()" class="p-button-success p-button-text"></button>
+    </ng-template>
+
+</p-dialog>
