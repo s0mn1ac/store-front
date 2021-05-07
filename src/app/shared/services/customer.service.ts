@@ -4,33 +4,77 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { Customer } from 'src/app/layout/components/customer/models/customer.model';
 import { map, catchError } from 'rxjs/operators';
+import { BaseService } from './common/base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerService {
+export class CustomerService extends BaseService {
 
     private url = 'http://localhost:8090/customer';
     private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    constructor(private http: HttpClient, private router: Router) { }
+    // constructor(private http: HttpClient, private router: Router) { }
 
-    public getAllCustomers(): Observable<Customer[]> {
-        return this.http.get<Customer[]>(this.url, {headers: this.httpHeaders}).pipe(
-            catchError(error => {
-                console.log(error)
-                return throwError(error);
-            })
-        );
+    public getAllCustomers(): Promise<Customer[]> {
+        return this.serviceGet({
+            url: this.url,
+            headers: this.httpHeaders,
+            callback: (response: any) => this.convertCustomersFromReport(response?.body),
+            result: null
+        });
     }
 
-    public modifyCustomer(customer: Customer): Observable<Customer> {
-        return this.http.put<Customer>(`${this.url}/${customer.id}`, customer, {headers: this.httpHeaders}).pipe(
-            catchError(error => {
-                console.log(error)
-                return throwError(error);
-            })
-        );
+    public addCustomer(customer: Customer): Promise<Customer[]> {
+        return this.servicePost({
+            url: this.url,
+            params: customer,
+            headers: this.httpHeaders,
+            callback: (response: any) => response?.body,
+            result: null
+        });
+    }
+
+    public modifyCustomer(customer: Customer): Promise<Customer[]> {
+        return this.servicePut({
+            url: `${this.url}/${customer.id}`,
+            params: customer,
+            headers: this.httpHeaders,
+            callback: (response: any) => response?.body,
+            result: null
+        });
+    }
+
+    public deleteCustomer(customer: Customer): Promise<Customer[]> {
+        return this.serviceDelete({
+            url: `${this.url}/${customer.id}`,
+            headers: this.httpHeaders,
+            callback: (response: any) => response?.body,
+            result: null
+        });
+    }
+
+    private convertCustomersFromReport(report: any[]): Customer[] {
+
+        const customers: Customer[] = [];
+    
+        report?.forEach((reportItem: any) => {
+    
+          const customer: Customer = new Customer();
+    
+          customer.id = reportItem.id;
+          customer.name = reportItem.name;
+          customer.lastname = reportItem.lastname;
+          customer.document = reportItem.document;
+          customer.email = reportItem.email;
+          customer.birthdate = new Date(reportItem.birthdate);
+    
+          customers.push(customer);
+    
+        });
+    
+        return customers;
+
     }
 
 }

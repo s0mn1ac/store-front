@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CalendarProperties } from 'src/app/shared/models/calendar-properties.model';
-import { AppService } from 'src/app/shared/services/app.service';
+import { AppService } from 'src/app/shared/services/common/app.service';
 import { Customer } from '../../models/customer.model';
 
 @Component({
@@ -14,6 +14,7 @@ export class CustomerModalComponent implements OnInit {
   @Output() appOnApplyChanges: EventEmitter<void> = new EventEmitter<void>();
   
   public isDialogVisible = false;
+  public isNewCustomer!: boolean;
 
   public customer: Customer = new Customer();
 
@@ -29,6 +30,12 @@ export class CustomerModalComponent implements OnInit {
     this.isDialogVisible = !this.isDialogVisible;
   }
 
+  public addCustomer(): void {
+    this.customer = new Customer();
+    this.isNewCustomer = true;
+    this.toggleDialog();
+  }
+
   public modifyCustomer(customer: Customer): void {
 
     this.customer = new Customer();
@@ -40,16 +47,18 @@ export class CustomerModalComponent implements OnInit {
     this.customer.email = customer.email;
     this.customer.document = customer.document;
 
+    this.isNewCustomer = false;
     this.toggleDialog();
   }
 
-  public onClickApply(): void {
-    this.appService.customerService.modifyCustomer(this.customer).subscribe(
-      customer => {
-        this.appOnApplyChanges.emit();
-        this.toggleDialog();
-      }
-    );
+  public async onClickApply(): Promise<void> {
+    if (this.isNewCustomer) {
+      await this.appService.customerService.addCustomer(this.customer);
+    } else {
+      await this.appService.customerService.modifyCustomer(this.customer);
+    }
+    this.appOnApplyChanges.emit();
+    this.toggleDialog();
   }
   
   public onClickCancel(): void {

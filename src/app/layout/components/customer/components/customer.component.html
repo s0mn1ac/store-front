@@ -1,5 +1,10 @@
 <div class="customer-layout flex-column">
 
+    <div class="customer-header-container flex-row">
+        <h1> Clientes </h1>
+        <button pButton pRipple type="button" icon="pi pi-plus-circle" label="Añadir" class="p-button-success" (click)="onClickAddCustomer()"></button>
+    </div>
+
     <div class="table-container">
 
         <p-table #cutomersTable [value]="customers" dataKey="id" [rowHover]="true"
@@ -66,7 +71,7 @@
 
             <ng-template pTemplate="emptymessage">
                 <tr>
-                    <td colspan="6"> Aún no hay clientes registrados... </td>
+                    <td colspan="8"> Aún no hay clientes registrados... </td>
                 </tr>
             </ng-template>
 
@@ -75,5 +80,12 @@
     </div>
 
     <app-customer-modal #customerModal (appOnApplyChanges)="getAllCustomers()"></app-customer-modal>
+
+    <p-confirmDialog #confirmDialog header="Eliminar registro" icon="pi pi-exclamation-triangle">
+        <ng-template pTemplate="footer">
+            <button type="button" pButton icon="pi pi-times" label="No" class="p-button-danger p-button-text" (click)="confirmDialog.reject()"></button>
+            <button type="button" pButton icon="pi pi-check" label="Sí" class="p-button-success p-button-text" (click)="confirmDialog.accept()"></button>
+        </ng-template>
+    </p-confirmDialog>
 
 </div>

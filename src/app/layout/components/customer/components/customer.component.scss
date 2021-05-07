@@ -3,6 +3,12 @@
 :host ::ng-deep .customer-layout {
     height: 100%;
 
+    .customer-header-container {
+        justify-content: space-between;
+        width: 100%;
+        padding: 10px;
+    }
+
     .table-container {
         height: 100%;
 
@@ -15,6 +21,7 @@
                 height: 100%;
 
                 th, td {
+                    cursor: default;
 
                     &.id {
                         width: 5rem;

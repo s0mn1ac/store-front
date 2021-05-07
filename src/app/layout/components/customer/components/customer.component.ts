@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { AppService } from 'src/app/shared/services/app.service';
+import { AppService } from 'src/app/shared/services/common/app.service';
 import { Customer } from '../models/customer.model';
 import { CustomerModalComponent } from './customer-modal/customer-modal.component';
 
@@ -9,50 +10,30 @@ import { CustomerModalComponent } from './customer-modal/customer-modal.componen
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.scss']
 })
-export class CustomerComponent implements OnInit, OnDestroy {
+export class CustomerComponent implements OnInit {
 
   @ViewChild('customerModal') customerModal!: CustomerModalComponent;
 
   public customers!: any[];
 
-  private getAllCustomers$!: Subscription;
-
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService, private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.getAllCustomers();
   }
 
-  private convertCustomersFromReport(report: any[]): Customer[] {
-
-    const customers: Customer[] = [];
-
-    report?.forEach((reportItem: any) => {
-
-      const customer: Customer = new Customer();
-
-      customer.id = reportItem.id;
-      customer.name = reportItem.name;
-      customer.lastname = reportItem.lastname;
-      customer.document = reportItem.document;
-      customer.email = reportItem.email;
-      customer.birthdate = new Date(reportItem.birthdate);
-
-      customers.push(customer);
-
-    });
-
-    return customers;
-
+  public async getAllCustomers(): Promise<void> {
+    this.customers = await this.appService.customerService.getAllCustomers();
   }
 
-  public getAllCustomers(): void {
-    this.cancelSubscriptions();
-    this.getAllCustomers$ = this.appService.customerService.getAllCustomers().subscribe(
-      customers => {
-        this.customers = this.convertCustomersFromReport(customers);
-      }
-    );
+  public async deleteCustomer(customer: Customer): Promise<void> {
+    await this.appService.customerService.deleteCustomer(customer);
+    this.messageService.add({key: 'bc', severity:'info', detail: 'Registro borrado con éxito'});
+    this.getAllCustomers();
+  }
+
+  public onClickAddCustomer(): void {
+    this.customerModal.addCustomer();
   }
 
   public onClickModifyCustomer(customer: Customer): void {
@@ -60,16 +41,12 @@ export class CustomerComponent implements OnInit, OnDestroy {
   }
   
   public onClickDeleteCustomer(customer: Customer): void {
-  }
-
-  private cancelSubscriptions(): void {
-    if (this.getAllCustomers$ != null) {
-      this.getAllCustomers$.unsubscribe();
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.cancelSubscriptions();
+    this.confirmationService.confirm({
+      message: '¿Estás seguro de que deseas eliminar el registro seleccionado?',
+      accept: () => {
+        this.deleteCustomer(customer);
+      }
+    });
   }
 
 }

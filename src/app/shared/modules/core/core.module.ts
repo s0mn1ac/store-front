@@ -2,10 +2,12 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../components/header/header.component';
 import { LayoutComponent } from 'src/app/layout/components/layout.component';
-import { AppService } from '../../services/app.service';
+import { AppService } from '../../services/common/app.service';
 import { RouterModule } from '@angular/router';
 import { PrimengModule } from '../primeng/primeng.module';
 import { FormsModule } from '@angular/forms';
+import { ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,11 @@ export class CoreModule {
   static forRoot(): ModuleWithProviders<any> {
       return {
           ngModule: CoreModule,
-          providers: [AppService]
+          providers: [
+            AppService,
+            ConfirmationService,
+            MessageService
+          ]
       };
   }
 }

@@ -4,6 +4,8 @@ import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [],
@@ -12,7 +14,9 @@ import { CalendarModule } from 'primeng/calendar';
     ButtonModule,
     DialogModule,
     InputTextModule,
-    CalendarModule
+    CalendarModule,
+    ConfirmDialogModule,
+    ToastModule
   ]
 })
 export class PrimengModule { }
