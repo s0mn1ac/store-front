@@ -5,7 +5,7 @@
     width: calc(100vw - 100px);
     height: calc(100vh - 100px);
     max-width: 800px;
-    max-height: 675px;
+    max-height: 625px;
 
     .p-dialog-content {
         height: 100%;
@@ -24,6 +24,15 @@
                 .p-inputtext {
                     width: 100%;
                     max-width: 300px;
+                }
+
+                .p-datepicker {
+
+                    font-size: 14px !important;
+
+                    td {
+                        padding: 0 !important;
+                    }
                 }
             }
         }
