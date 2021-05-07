@@ -20,7 +20,7 @@ export class CustomerModalComponent implements OnInit {
 
   public calendarProperties!: CalendarProperties;
 
-  constructor(private appService: AppService, private router: Router) {
+  constructor(private appService: AppService) {
     this.calendarProperties = new CalendarProperties('es');
   }
 
