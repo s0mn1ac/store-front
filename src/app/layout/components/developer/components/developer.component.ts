@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { AppService } from 'src/app/shared/services/common/app.service';
+import { Developer } from '../models/developer.model';
+import { DeveloperModalComponent } from './developer-modal/developer-modal.component';
 
 @Component({
   selector: 'app-developer',
@@ -7,9 +11,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeveloperComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('developerModal') developerModal!: DeveloperModalComponent;
+
+  public developers!: any[];
+
+  constructor(private appService: AppService, private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
   ngOnInit(): void {
+    this.getAllDevelopers();
+  }
+
+  public async getAllDevelopers(): Promise<void> {
+    this.developers = await this.appService.developerService.getAllDevelopers();
+  }
+
+  public async deleteDeveloper(developer: Developer): Promise<void> {
+    await this.appService.developerService.deleteDeveloper(developer);
+    this.messageService.add({key: 'bc', severity:'info', detail: 'Registro borrado con éxito'});
+    this.getAllDevelopers();
+  }
+
+  public onClickAddDeveloper(): void {
+    this.developerModal.addDeveloper();
+  }
+
+  public onClickModifyDeveloper(developer: Developer): void {
+    this.developerModal.modifyDeveloper(developer);
+  }
+  
+  public onClickDeleteDeveloper(developer: Developer): void {
+    this.confirmationService.confirm({
+      message: '¿Estás seguro de que deseas eliminar el registro seleccionado?',
+      accept: () => {
+        this.deleteDeveloper(developer);
+      }
+    });
   }
 
 }
