@@ -1,0 +1,26 @@
+<p-dialog header="Tienda" [(visible)]="isDialogVisible" [baseZIndex]="10000" [modal]="true" [closable]="false">
+
+    <div class="content-container flex-row">
+
+        <div class="first-column flex-column">
+
+            <h5> Nombre </h5>
+            <input type="text" pInputText [(ngModel)]="store.name" />
+            
+            <h5> Dirección </h5>
+            <input type="text" pInputText [(ngModel)]="store.address" />
+
+        </div>
+
+        <div class="second-column flex-column">
+            
+        </div>
+
+    </div>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" label="Cancelar" (click)="onClickCancel()" class="p-button-danger p-button-text"></button>
+        <button pButton pRipple type="button" label="Aplicar" (click)="onClickApply()" class="p-button-success p-button-text"></button>
+    </ng-template>
+
+</p-dialog>

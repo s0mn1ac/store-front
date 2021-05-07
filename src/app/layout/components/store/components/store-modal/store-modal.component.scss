@@ -1,0 +1,30 @@
+@import "../../../../../../assets/scss/shared.scss";
+
+:host ::ng-deep .p-dialog {
+    width: calc(100vw - 100px);
+    height: calc(100vh - 100px);
+    max-width: 800px;
+    max-height: 500px;
+
+    .p-dialog-content {
+        height: 100%;
+
+        .content-container {
+            width: 100%;
+            height: 100%;
+
+            .first-column, .second-column {
+                width: 100%;
+                height: 100%;
+                justify-content: flex-start;
+                align-items: flex-start;
+                padding: 10px;
+
+                .p-inputtext {
+                    width: 100%;
+                    max-width: 300px;
+                }
+            }
+        }
+    }
+}

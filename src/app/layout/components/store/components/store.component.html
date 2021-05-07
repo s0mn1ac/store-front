@@ -1,1 +1,73 @@
-<p>store works!</p>
+<div class="store-layout flex-column">
+
+    <div class="store-header-container flex-row">
+        <h1> Clientes </h1>
+        <button pButton pRipple type="button" icon="pi pi-plus-circle" label="Añadir" class="p-button-success" (click)="onClickAddStore()"></button>
+    </div>
+
+    <div class="table-container">
+
+        <p-table #cutomersTable [value]="stores" dataKey="id" [rowHover]="true"
+            [rows]="10" [showCurrentPageReport]="true" [paginator]="true"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} clientes">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="id">
+                        <span> ID </span>
+                    </th>
+                    <th class="name">
+                        <span> Nombre </span>
+                    </th>
+                    <th class="address">
+                        <span> Dirección </span>
+                    </th>
+                    <th class="modify">
+                        <span> Editar </span>
+                    </th>
+                    <th class="delete">
+                        <span> Eliminar </span>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-store>
+                <tr class="p-selectable-row">
+                    <td class="id">
+                        <span> {{ store.id }} </span>
+                    </td>
+                    <td class="name">
+                        <span> {{ store.name }} </span>
+                    </td>
+                    <td class="address">
+                        <span> {{ store.address }} </span>
+                    </td>
+                    <td class="modify">
+                        <button pButton pRipple type="button" icon="pi pi-user-edit" (click)="onClickModifyStore(store)" class="p-button-warning"></button>
+                    </td>
+                    <td class="delete">
+                        <button pButton pRipple type="button" icon="pi pi-trash" (click)="onClickDeleteStore(store)" class="p-button-danger"></button>
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="5"> Aún no hay tiendas registradas... </td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+
+    </div>
+
+    <app-store-modal #storeModal (appOnApplyChanges)="getAllStores()"></app-store-modal>
+
+    <p-confirmDialog #confirmDialog header="Eliminar registro" icon="pi pi-exclamation-triangle">
+        <ng-template pTemplate="footer">
+            <button type="button" pButton icon="pi pi-times" label="No" class="p-button-danger p-button-text" (click)="confirmDialog.reject()"></button>
+            <button type="button" pButton icon="pi pi-check" label="Sí" class="p-button-success p-button-text" (click)="confirmDialog.accept()"></button>
+        </ng-template>
+    </p-confirmDialog>
+
+</div>

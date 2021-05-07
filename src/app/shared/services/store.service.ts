@@ -20,7 +20,7 @@ export class StoreService extends BaseService {
         });
     }
 
-    public addCustomer(store: Store): Promise<Store[]> {
+    public addStore(store: Store): Promise<Store[]> {
         return this.servicePost({
             url: this.url,
             params: store,
