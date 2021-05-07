@@ -1,9 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
 import { Customer } from 'src/app/layout/components/customer/models/customer.model';
-import { map, catchError } from 'rxjs/operators';
 import { BaseService } from './common/base.service';
 
 @Injectable({
