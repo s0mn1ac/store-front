@@ -57,16 +57,16 @@ export class BaseService {
     
         report?.forEach((reportItem: any) => {
     
-          const customer: Customer = new Customer();
-    
-          customer.id = reportItem.id;
-          customer.name = reportItem.name;
-          customer.lastname = reportItem.lastname;
-          customer.document = reportItem.document;
-          customer.email = reportItem.email;
-          customer.birthdate = new Date(reportItem.birthdate);
-    
-          customers.push(customer);
+            const customer: Customer = new Customer();
+        
+            customer.id = reportItem.id;
+            customer.name = reportItem.name;
+            customer.lastname = reportItem.lastname;
+            customer.document = reportItem.document;
+            customer.email = reportItem.email;
+            customer.birthdate = new Date(reportItem.birthdate);
+        
+            customers.push(customer);
     
         });
     
@@ -80,13 +80,13 @@ export class BaseService {
     
         report?.forEach((reportItem: any) => {
     
-          const developer: Developer = new Developer();
-    
-          developer.id = reportItem.id;
-          developer.name = reportItem.name;
-          developer.cif = reportItem.cif;
-    
-          developers.push(developer);
+            const developer: Developer = new Developer();
+        
+            developer.id = reportItem.id;
+            developer.name = reportItem.name;
+            developer.cif = reportItem.cif;
+        
+            developers.push(developer);
     
         });
     
@@ -123,16 +123,16 @@ export class BaseService {
     
         report?.forEach((reportItem: any) => {
     
-          const order: Order = new Order();
-    
-          order.id = reportItem.id;
-          order.reference = reportItem.reference;
-          order.status = StatusEnum[reportItem.status as keyof typeof StatusEnum];
-          order.customer = this.convertCustomersFromReport([reportItem.customer])[0];
-          order.game = this.convertGamesFromReport([reportItem.game])[0];
-          order.store = this.convertStoresFromReport([reportItem.store])[0];
-    
-          orders.push(order);
+            const order: Order = new Order();
+        
+            order.id = reportItem.id;
+            order.reference = reportItem.reference;
+            order.status = StatusEnum[reportItem.status as keyof typeof StatusEnum];
+            order.customer = this.convertCustomersFromReport([reportItem.customer])[0];
+            order.game = this.convertGamesFromReport([reportItem.game])[0];
+            order.store = this.convertStoresFromReport([reportItem.store])[0];
+        
+            orders.push(order);
     
         });
 
@@ -148,13 +148,13 @@ export class BaseService {
     
         report?.forEach((reportItem: any) => {
     
-          const store: Store = new Store();
-    
-          store.id = reportItem.id;
-          store.name = reportItem.name;
-          store.address = reportItem.address;
-    
-          stores.push(store);
+            const store: Store = new Store();
+        
+            store.id = reportItem.id;
+            store.name = reportItem.name;
+            store.address = reportItem.address;
+        
+            stores.push(store);
     
         });
     
