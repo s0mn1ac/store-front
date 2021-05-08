@@ -6,6 +6,7 @@ import { CoreModule } from './shared/modules/core/core.module';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +18,9 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     CoreModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
