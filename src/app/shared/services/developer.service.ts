@@ -20,7 +20,7 @@ export class DeveloperService extends BaseService {
         });
     }
 
-    public addDeveloper(developer: Developer): Promise<Developer[]> {
+    public addDeveloper(developer: Developer): Promise<void> {
         return this.servicePost({
             url: this.url,
             params: developer,
@@ -30,7 +30,7 @@ export class DeveloperService extends BaseService {
         });
     }
 
-    public modifyDeveloper(developer: Developer): Promise<Developer[]> {
+    public modifyDeveloper(developer: Developer): Promise<Developer> {
         return this.servicePut({
             url: `${this.url}/${developer.id}`,
             params: developer,
@@ -40,33 +40,13 @@ export class DeveloperService extends BaseService {
         });
     }
 
-    public deleteDeveloper(developer: Developer): Promise<Developer[]> {
+    public deleteDeveloper(developer: Developer): Promise<void> {
         return this.serviceDelete({
             url: `${this.url}/${developer.id}`,
             headers: this.httpHeaders,
             callback: (response: any) => response?.body,
             result: null
         });
-    }
-
-    private convertDevelopersFromReport(report: any[]): Developer[] {
-
-        const developers: Developer[] = [];
-    
-        report?.forEach((reportItem: any) => {
-    
-          const developer: Developer = new Developer();
-    
-          developer.id = reportItem.id;
-          developer.name = reportItem.name;
-          developer.cif = reportItem.cif;
-    
-          developers.push(developer);
-    
-        });
-    
-        return developers;
-
     }
 
 }

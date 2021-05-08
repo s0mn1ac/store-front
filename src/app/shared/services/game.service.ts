@@ -1,48 +1,48 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Store } from 'src/app/layout/components/store/models/store.model';
+import { Game } from 'src/app/layout/components/game/components/models/game.model';
 import { BaseService } from './common/base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StoreService extends BaseService {
+export class GameService extends BaseService {
 
-    private url = 'http://localhost:8090/store';
+    private url = 'http://localhost:8090/game';
     private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    public getAllStores(): Promise<Store[]> {
+    public getAllGames(): Promise<Game[]> {
         return this.serviceGet({
             url: this.url,
             headers: this.httpHeaders,
-            callback: (response: any) => this.convertStoresFromReport(response?.body),
+            callback: (response: any) => this.convertGamesFromReport(response?.body),
             result: null
         });
     }
 
-    public addStore(store: Store): Promise<void> {
+    public addGame(game: Game): Promise<void> {
         return this.servicePost({
             url: this.url,
-            params: store,
+            params: game,
             headers: this.httpHeaders,
             callback: (response: any) => response?.body,
             result: null
         });
     }
 
-    public modifyStore(store: Store): Promise<Store> {
+    public modifyGame(game: Game): Promise<Game> {
         return this.servicePut({
-            url: `${this.url}/${store.id}`,
-            params: store,
+            url: `${this.url}/${game.id}`,
+            params: game,
             headers: this.httpHeaders,
             callback: (response: any) => response?.body,
             result: null
         });
     }
 
-    public deleteStore(store: Store): Promise<void> {
+    public deleteGame(game: Game): Promise<void> {
         return this.serviceDelete({
-            url: `${this.url}/${store.id}`,
+            url: `${this.url}/${game.id}`,
             headers: this.httpHeaders,
             callback: (response: any) => response?.body,
             result: null
