@@ -3,9 +3,11 @@
 Proyecto desarrollado para la asignatura de __Acceso a datos__ del __IES Puerto de La Cruz Telesforo Bravo__ durante el curso 2020 - 2021.
 
 ## Contenido
+---
 
 *   [Descripción](#descripcion)
 *   [Autor](#autor)
+*   [Instalación y puesta en marcha](#instalación-y-puesta-en-marcha)
 *   [Secciones](#secciones)
     *   [Panel de clientes](#panel-de-clientes)
     *   [Panel de tiendas](#panel-de-tiendas)
@@ -15,16 +17,42 @@ Proyecto desarrollado para la asignatura de __Acceso a datos__ del __IES Puerto 
 
 
 ## Descripción
+---
 
 El proyecto __Store__ ha sido desarrollado con la finalidad de mostrar los conocimientos adquiridos a lo largo del curso en lo que a __acceso a datos__ se refiere. Este proyecto cuenta con un _frontend_ sencillo desarrollado en __Angular__ y conectado a una __API Rest__ desarrollada con __Spring__ a modo de _backend_.
 
 
 ## Autor
+---
 
 Este proyecto ha sido desarrollado en su totalidad por __Juan Miguel González Machado__, alumno de __2º de DAM__ durante el curso 2020 - 2021.
 
+## Instalación y puesta en marcha
+---
+
+### Requisitos previos
+
+Para poner en marcha la aplicación es necesario disponer de:
+
+* Node JS
+* Backend Spring
+* Frontend Angular
+* Una conexión a Mysql con el usuario _root_ y la contraseña _toor_
+* Una base de datos vacía llamada _store_
+
+### Instrucciones
+
+1. Ejecutar el _backend_ con __Spring__ (si saltan errores, ejecutarlo una segunda vez)
+2. Ejecutar el _frontend_ con __Angular__ valiéndonos de los siguientes comandos:
+
+```
+$ npm install
+$ npm start
+```
+
 
 ## Secciones
+---
 
 ### Panel de clientes
 
