@@ -21,7 +21,7 @@
         <div class="second-column flex-column">
 
             <h5> Fecha de nacimiento </h5>
-            <p-calendar [inline]="true" [locale]="calendarProperties" [showWeek]="true" [(ngModel)]="customer.birthdate" ></p-calendar>
+            <p-calendar [inline]="true" [locale]="calendarProperties" [showWeek]="true" [(ngModel)]="customer.birthdate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1970:2003"></p-calendar>
             
         </div>
 
