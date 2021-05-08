@@ -1,1 +1,85 @@
-<p>game works!</p>
+<div class="game-layout flex-column">
+
+    <div class="game-header-container flex-row">
+        <h1> Juegos </h1>
+        <button pButton pRipple type="button" icon="pi pi-plus-circle" label="Añadir" class="p-button-success" (click)="onClickAddGame()"></button>
+    </div>
+
+    <div class="table-container">
+
+        <p-table #cutomersTable [value]="games" dataKey="id" [rowHover]="true"
+            [rows]="10" [showCurrentPageReport]="true" [paginator]="true"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} juegos">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="id">
+                        <span> ID </span>
+                    </th>
+                    <th class="title">
+                        <span> Título </span>
+                    </th>
+                    <th class="category">
+                        <span> Categoría </span>
+                    </th>
+                    <th class="pegi">
+                        <span> PEGI </span>
+                    </th>
+                    <th class="launch">
+                        <span> Lanzamiento </span>
+                    </th>
+                    <th class="modify">
+                        <span> Editar </span>
+                    </th>
+                    <th class="delete">
+                        <span> Eliminar </span>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-game>
+                <tr class="p-selectable-row">
+                    <td class="id">
+                        <span> {{ game.id }} </span>
+                    </td>
+                    <td class="title">
+                        <span> {{ game.title }} </span>
+                    </td>
+                    <td class="category">
+                        <span> {{ game.category }} </span>
+                    </td>
+                    <td class="pegi">
+                        <span> {{ game.pegi }} </span>
+                    </td>
+                    <td class="launch">
+                        <span> {{ game.launch | dateFormat }} </span>
+                    </td>
+                    <td class="modify">
+                        <button pButton pRipple type="button" icon="pi pi-user-edit" (click)="onClickModifyGame(game)" class="p-button-warning"></button>
+                    </td>
+                    <td class="delete">
+                        <button pButton pRipple type="button" icon="pi pi-trash" (click)="onClickDeleteGame(game)" class="p-button-danger"></button>
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="7"> Aún no hay juegos registrados... </td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+
+    </div>
+
+    <app-game-modal #gameModal (appOnApplyChanges)="getAllGames()"></app-game-modal>
+
+    <p-confirmDialog #confirmDialog header="Eliminar registro" icon="pi pi-exclamation-triangle">
+        <ng-template pTemplate="footer">
+            <button type="button" pButton icon="pi pi-times" label="No" class="p-button-danger p-button-text" (click)="confirmDialog.reject()"></button>
+            <button type="button" pButton icon="pi pi-check" label="Sí" class="p-button-success p-button-text" (click)="confirmDialog.accept()"></button>
+        </ng-template>
+    </p-confirmDialog>
+
+</div>

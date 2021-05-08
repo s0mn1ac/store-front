@@ -1,0 +1,35 @@
+<p-dialog header="Juego" [(visible)]="isDialogVisible" [baseZIndex]="10000" [modal]="true" [closable]="false">
+
+    <div class="content-container flex-row">
+
+        <div class="first-column flex-column">
+
+            <h5> Título </h5>
+            <input type="text" pInputText [(ngModel)]="game.title" [autofocus]="true" />
+            
+            <h5> Categoría </h5>
+            <p-dropdown [options]="categories" [(ngModel)]="categorySelected" [autoDisplayFirst]="false" optionLabel="name"></p-dropdown>
+
+            <h5> Desarrolladoras </h5>
+            <p-multiSelect [options]="developers" [(ngModel)]="game.developers" optionLabel="name"></p-multiSelect>
+
+            <h5> PEGI </h5>
+            <p-inputNumber [min]="0" [max]="18" [useGrouping]="false" [(ngModel)]="game.pegi"></p-inputNumber>
+
+        </div>
+
+        <div class="second-column flex-column">
+
+            <h5> Lanzamiento </h5>
+            <p-calendar [inline]="true" [locale]="calendarProperties" [showWeek]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="2010:2023" [(ngModel)]="game.launch" ></p-calendar>
+            
+        </div>
+
+    </div>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" label="Cancelar" (click)="onClickCancel()" class="p-button-danger p-button-text"></button>
+        <button pButton pRipple type="button" label="Aplicar" (click)="onClickApply()" class="p-button-success p-button-text"></button>
+    </ng-template>
+
+</p-dialog>

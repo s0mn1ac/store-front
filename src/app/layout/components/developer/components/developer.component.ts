@@ -13,7 +13,7 @@ export class DeveloperComponent implements OnInit {
 
   @ViewChild('developerModal') developerModal!: DeveloperModalComponent;
 
-  public developers!: any[];
+  public developers!: Developer[];
 
   constructor(private appService: AppService, private confirmationService: ConfirmationService, private messageService: MessageService) { }
 

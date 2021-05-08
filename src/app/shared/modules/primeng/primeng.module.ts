@@ -6,6 +6,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [],
@@ -16,7 +19,10 @@ import { ToastModule } from 'primeng/toast';
     InputTextModule,
     CalendarModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
+    MultiSelectModule,
+    DropdownModule,
+    InputNumberModule
   ]
 })
 export class PrimengModule { }

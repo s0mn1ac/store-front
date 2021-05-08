@@ -13,7 +13,7 @@ export class StoreComponent implements OnInit {
 
   @ViewChild('storeModal') storeModal!: StoreModalComponent;
 
-  public stores!: any[];
+  public stores!: Store[];
 
   constructor(private appService: AppService, private confirmationService: ConfirmationService, private messageService: MessageService) { }
 

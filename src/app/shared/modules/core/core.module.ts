@@ -8,11 +8,13 @@ import { PrimengModule } from '../primeng/primeng.module';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import { DateFormatPipe } from '../../pipes/date-format.pipe';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    LayoutComponent
+    LayoutComponent,
+    DateFormatPipe
   ],
   entryComponents: [],
   imports: [
@@ -24,7 +26,8 @@ import { MessageService } from 'primeng/api';
   exports: [
     HeaderComponent,
     LayoutComponent,
-    FormsModule
+    FormsModule,
+    DateFormatPipe
   ],
   providers: [],
 })
