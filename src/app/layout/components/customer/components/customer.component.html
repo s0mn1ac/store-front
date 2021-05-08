@@ -55,7 +55,7 @@
                         <span> {{ customer.lastname }} </span>
                     </td>
                     <td class="birthdate">
-                        <span> {{ customer.birthdate.toLocaleDateString('es-ES') }} </span>
+                        <span> {{ customer.birthdate | dateFormat}} </span>
                     </td>
                     <td class="email">
                         <span> {{ customer.email }} </span>

@@ -1,1 +1,85 @@
-<p>order works!</p>
+<div class="order-layout flex-column">
+
+    <div class="order-header-container flex-row">
+        <h1> Pedidos </h1>
+        <button pButton pRipple type="button" icon="pi pi-plus-circle" label="Añadir" class="p-button-success" (click)="onClickAddOrder()"></button>
+    </div>
+
+    <div class="table-container">
+
+        <p-table #cutomersTable [value]="orders" dataKey="id" [rowHover]="true"
+            [rows]="10" [showCurrentPageReport]="true" [paginator]="true"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} juegos">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="id">
+                        <span> ID </span>
+                    </th>
+                    <th class="reference">
+                        <span> Referencia </span>
+                    </th>
+                    <th class="customer">
+                        <span> Cliente </span>
+                    </th>
+                    <th class="game">
+                        <span> Juego </span>
+                    </th>
+                    <th class="store">
+                        <span> Tienda </span>
+                    </th>
+                    <th class="status">
+                        <span> Estado </span>
+                    </th>
+                    <th class="modify">
+                        <span> Editar </span>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-order>
+                <tr class="p-selectable-row">
+                    <td class="id">
+                        <span> {{ order.id }} </span>
+                    </td>
+                    <td class="reference">
+                        <span> {{ order.reference }} </span>
+                    </td>
+                    <td class="customer">
+                        <span> {{ order.customer.name }} </span>
+                    </td>
+                    <td class="game">
+                        <span> {{ order.game.title }} </span>
+                    </td>
+                    <td class="store">
+                        <span> {{ order.store.name }} </span>
+                    </td>
+                    <td class="status">
+                        <span> {{ order.status }} </span>
+                    </td>
+                    <td class="modify">
+                        <button pButton pRipple type="button" icon="pi pi-user-edit" (click)="onClickModifyOrder(order)" class="p-button-warning"></button>
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="7"> Aún no hay pedidos registrados... </td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+
+    </div>
+
+    <app-order-modal #orderModal (appOnApplyChanges)="getAllOrders()"></app-order-modal>
+
+    <p-confirmDialog #confirmDialog header="Eliminar registro" icon="pi pi-exclamation-triangle">
+        <ng-template pTemplate="footer">
+            <button type="button" pButton icon="pi pi-times" label="No" class="p-button-danger p-button-text" (click)="confirmDialog.reject()"></button>
+            <button type="button" pButton icon="pi pi-check" label="Sí" class="p-button-success p-button-text" (click)="confirmDialog.accept()"></button>
+        </ng-template>
+    </p-confirmDialog>
+
+</div>

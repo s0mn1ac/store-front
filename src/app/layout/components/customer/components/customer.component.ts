@@ -14,7 +14,7 @@ export class CustomerComponent implements OnInit {
 
   @ViewChild('customerModal') customerModal!: CustomerModalComponent;
 
-  public customers!: any[];
+  public customers!: Customer[];
 
   constructor(private appService: AppService, private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
