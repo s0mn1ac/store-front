@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { CalendarProperties } from 'src/app/shared/models/calendar-properties.model';
 import { AppService } from 'src/app/shared/services/common/app.service';
 import { Customer } from '../../models/customer.model';
@@ -20,7 +21,7 @@ export class CustomerModalComponent implements OnInit {
 
   public calendarProperties!: CalendarProperties;
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService, private messageService: MessageService) {
     this.calendarProperties = new CalendarProperties('es');
   }
 
@@ -53,12 +54,18 @@ export class CustomerModalComponent implements OnInit {
 
   public async onClickApply(): Promise<void> {
     if (this.isNewCustomer) {
-      await this.appService.customerService.addCustomer(this.customer);
+      await this.appService.customerService.addCustomer(this.customer).then(() => {
+        this.appOnApplyChanges.emit();
+        this.messageService.add({severity: 'success', summary: 'Nuevo registro añadido', detail: "El registro ha sido añadido correctamente a la base de datos"});
+        this.toggleDialog();
+      }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
     } else {
-      await this.appService.customerService.modifyCustomer(this.customer);
+      await this.appService.customerService.modifyCustomer(this.customer).then(() => {
+        this.appOnApplyChanges.emit();
+        this.messageService.add({severity: 'success', summary: 'Registro actualizado', detail: "El registro ha sido actualizado correctamente"});
+        this.toggleDialog();
+      }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
     }
-    this.appOnApplyChanges.emit();
-    this.toggleDialog();
   }
   
   public onClickCancel(): void {

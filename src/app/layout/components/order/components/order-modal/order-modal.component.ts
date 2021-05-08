@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { CategoryEnum } from 'src/app/shared/enums/category.enum';
 import { StatusEnum } from 'src/app/shared/enums/status.enum';
 import { AppService } from 'src/app/shared/services/common/app.service';
@@ -31,7 +32,7 @@ export class OrderModalComponent implements OnInit {
   public statusSelected!: any;
   public categorySelected!: any;
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService, private messageService: MessageService) {
 
     this.status = [
       { name: 'Alquiler', status: StatusEnum.RENT, value: 0 },
@@ -102,9 +103,17 @@ export class OrderModalComponent implements OnInit {
     this.order.status = this.statusSelected.value;
 
     if (this.isNewOrder) {
-      await this.appService.orderService.addOrder(this.order);
+      await this.appService.orderService.addOrder(this.order).then(() => {
+        this.appOnApplyChanges.emit();
+        this.messageService.add({severity: 'success', summary: 'Nuevo registro añadido', detail: "El registro ha sido añadido correctamente a la base de datos"});
+        this.toggleDialog();
+      }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
     } else {
-      await this.appService.orderService.modifyOrder(this.order);
+      await this.appService.orderService.modifyOrder(this.order).then(() => {
+        this.appOnApplyChanges.emit();
+        this.messageService.add({severity: 'success', summary: 'Registro actualizado', detail: "El registro ha sido actualizado correctamente"});
+        this.toggleDialog();
+      }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
     }
 
     this.appOnApplyChanges.emit();

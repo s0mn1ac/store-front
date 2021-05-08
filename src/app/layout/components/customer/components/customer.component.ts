@@ -28,7 +28,7 @@ export class CustomerComponent implements OnInit {
 
   public async deleteCustomer(customer: Customer): Promise<void> {
     await this.appService.customerService.deleteCustomer(customer);
-    this.messageService.add({key: 'bc', severity:'info', detail: 'Registro borrado con éxito'});
+    this.messageService.add({severity: 'info', summary: 'Registro eliminado', detail: "El registro ha sido eliminado correctamente de la base de datos"});
     this.getAllCustomers();
   }
 

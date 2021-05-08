@@ -11,8 +11,6 @@ export class CustomerService extends BaseService {
     private url = 'http://localhost:8090/customer';
     private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    // constructor(private http: HttpClient, private router: Router) { }
-
     public getAllCustomers(): Promise<Customer[]> {
         return this.serviceGet({
             url: this.url,

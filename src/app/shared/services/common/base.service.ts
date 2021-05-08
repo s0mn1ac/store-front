@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { Customer } from 'src/app/layout/components/customer/models/customer.model';
 import { Developer } from 'src/app/layout/components/developer/models/developer.model';
 import { Game } from 'src/app/layout/components/game/components/models/game.model';
@@ -22,7 +23,7 @@ interface ServiceParams {
 @Injectable()
 export class BaseService {
 
-    constructor(protected http: HttpClient) { }
+    constructor(protected http: HttpClient, private messageService: MessageService) { }
 
     protected serviceGet(serviceParams: ServiceParams): any {
         return this.http.get(serviceParams.url,

@@ -27,7 +27,7 @@ export class DeveloperComponent implements OnInit {
 
   public async deleteDeveloper(developer: Developer): Promise<void> {
     await this.appService.developerService.deleteDeveloper(developer);
-    this.messageService.add({key: 'bc', severity:'info', detail: 'Registro borrado con éxito'});
+    this.messageService.add({severity: 'info', summary: 'Registro eliminado', detail: "El registro ha sido eliminado correctamente de la base de datos"});
     this.getAllDevelopers();
   }
 

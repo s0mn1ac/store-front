@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { AppService } from 'src/app/shared/services/common/app.service';
 import { Developer } from '../../models/developer.model';
 
@@ -16,7 +17,7 @@ export class DeveloperModalComponent implements OnInit {
 
   public developer: Developer = new Developer();
 
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService, private messageService: MessageService) { }
 
   ngOnInit(): void { }
 
@@ -44,9 +45,17 @@ export class DeveloperModalComponent implements OnInit {
 
   public async onClickApply(): Promise<void> {
     if (this.isNewDeveloper) {
-      await this.appService.developerService.addDeveloper(this.developer);
+      await this.appService.developerService.addDeveloper(this.developer).then(() => {
+        this.appOnApplyChanges.emit();
+        this.messageService.add({severity: 'success', summary: 'Nuevo registro añadido', detail: "El registro ha sido añadido correctamente a la base de datos"});
+        this.toggleDialog();
+      }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
     } else {
-      await this.appService.developerService.modifyDeveloper(this.developer);
+      await this.appService.developerService.modifyDeveloper(this.developer).then(() => {
+        this.appOnApplyChanges.emit();
+        this.messageService.add({severity: 'success', summary: 'Registro actualizado', detail: "El registro ha sido actualizado correctamente"});
+        this.toggleDialog();
+      }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
     }
     this.appOnApplyChanges.emit();
     this.toggleDialog();

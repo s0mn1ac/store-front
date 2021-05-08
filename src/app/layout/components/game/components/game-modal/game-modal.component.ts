@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { CategoryEnum } from 'src/app/shared/enums/category.enum';
 import { CalendarProperties } from 'src/app/shared/models/calendar-properties.model';
 import { AppService } from 'src/app/shared/services/common/app.service';
@@ -24,7 +25,7 @@ export class GameModalComponent implements OnInit {
 
   public calendarProperties!: CalendarProperties;
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService, private messageService: MessageService) {
     this.calendarProperties = new CalendarProperties('es');
 
     this.categories = [
@@ -85,9 +86,17 @@ export class GameModalComponent implements OnInit {
     this.game.category = this.categorySelected.value;
 
     if (this.isNewGame) {
-      await this.appService.gameService.addGame(this.game);
+      await this.appService.gameService.addGame(this.game).then(() => {
+        this.appOnApplyChanges.emit();
+        this.messageService.add({severity: 'success', summary: 'Nuevo registro añadido', detail: "El registro ha sido añadido correctamente a la base de datos"});
+        this.toggleDialog();
+      }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
     } else {
-      await this.appService.gameService.modifyGame(this.game);
+      await this.appService.gameService.modifyGame(this.game).then(() => {
+        this.appOnApplyChanges.emit();
+        this.messageService.add({severity: 'success', summary: 'Registro actualizado', detail: "El registro ha sido actualizado correctamente"});
+        this.toggleDialog();
+      }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
     }
 
     this.appOnApplyChanges.emit();
