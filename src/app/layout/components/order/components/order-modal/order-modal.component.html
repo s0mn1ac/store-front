@@ -1,0 +1,35 @@
+<p-dialog header="Pedido" [(visible)]="isDialogVisible" [baseZIndex]="10000" [modal]="true" [closable]="false">
+
+    <div class="content-container flex-row">
+
+        <div class="first-column flex-column">
+
+            <h5> Referencia </h5>
+            <p-inputNumber [useGrouping]="false" [(ngModel)]="order.reference" [disabled]="true"></p-inputNumber>
+            
+            <h5> Estado </h5>
+            <p-dropdown [options]="status" [(ngModel)]="statusSelected" [autoDisplayFirst]="false" optionLabel="name"></p-dropdown>
+
+        </div>
+
+        <div class="second-column flex-column">
+
+            <h5> Cliente </h5>
+            <p-dropdown [options]="customers" [autoDisplayFirst]="false" [(ngModel)]="order.customer" optionLabel="name" [disabled]="!isNewOrder"></p-dropdown>
+            
+            <h5> Juego </h5>
+            <p-dropdown [options]="games" [autoDisplayFirst]="false" [(ngModel)]="order.game" optionLabel="title" [disabled]="!isNewOrder"></p-dropdown>
+            
+            <h5> Tienda </h5>
+            <p-dropdown [options]="stores" [autoDisplayFirst]="false" [(ngModel)]="order.store" optionLabel="name" [disabled]="!isNewOrder"></p-dropdown>
+            
+        </div>
+
+    </div>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple type="button" label="Cancelar" (click)="onClickCancel()" class="p-button-danger p-button-text"></button>
+        <button pButton pRipple type="button" label="Aplicar" (click)="onClickApply()" class="p-button-success p-button-text"></button>
+    </ng-template>
+
+</p-dialog>
