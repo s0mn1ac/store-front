@@ -47,10 +47,14 @@
                     &.stock {
                         width: 10rem;
                         text-align: center;
+                        text-align: -webkit-center;
+                        vertical-align: middle;
 
                         .stock-container {
-                            border-radius: 3px;
+                            border-radius: 50px;
                             padding: 5px;
+                            font-weight: bold;
+                            width: 100px;
 
                             &.success {
                                 border: 2px solid $success;
