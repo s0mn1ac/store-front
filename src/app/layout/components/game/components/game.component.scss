@@ -46,6 +46,27 @@
 
                     &.stock {
                         width: 10rem;
+                        text-align: center;
+
+                        .stock-container {
+                            border-radius: 3px;
+                            padding: 5px;
+
+                            &.success {
+                                border: 2px solid $success;
+                                color: $success;
+                            }
+
+                            &.warning {
+                                border: 2px solid $warning;
+                                color: $warning;
+                            }
+
+                            &.danger {
+                                border: 2px solid $danger;
+                                color: $danger;
+                            }
+                        }
                     }
 
                     &.modify {

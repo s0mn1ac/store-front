@@ -58,7 +58,9 @@
                         <span> {{ game.launch | dateFormat }} </span>
                     </td>
                     <td class="stock">
-                        <span> {{ game.stock }} </span>
+                        <div class="stock-container" [ngClass]="{'success': game.stock >= 50, 'warning': game.stock >= 25 && game.stock < 50, 'danger': game.stock < 25}">
+                            <span> {{ game.stock }} </span>
+                        </div>
                     </td>
                     <td class="modify">
                         <button pButton pRipple type="button" icon="pi pi-user-edit" (click)="onClickModifyGame(game)" class="p-button-warning"></button>

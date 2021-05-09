@@ -101,9 +101,11 @@ export class OrderModalComponent implements OnInit {
 
   public async onClickApply(): Promise<void> {
 
-    this.categorySelected = this.categories.find((category: any) => category.category === this.order.game.category);
+    if (this.order.game) {
+      this.categorySelected = this.categories.find((category: any) => category.category === this.order.game.category || category.value === this.order.game.category);
+      this.order.game.category = this.categorySelected.value;
+    }
 
-    this.order.game.category = this.categorySelected.value;
     this.order.status = this.statusSelected.value;
 
     if (this.isNewOrder) {
