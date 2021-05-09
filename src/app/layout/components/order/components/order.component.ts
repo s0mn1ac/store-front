@@ -27,7 +27,7 @@ export class OrderComponent implements OnInit {
 
   public async deleteOrder(order: Order): Promise<void> {
     await this.appService.orderService.deleteOrder(order);
-    this.messageService.add({severity: 'info', summary: 'Registro eliminado', detail: "El registro ha sido eliminado correctamente de la base de datos"});
+    this.messageService.add({severity: 'info', summary: 'Registro eliminado', detail: 'El registro ha sido eliminado correctamente de la base de datos'});
     this.getAllOrders();
   }
 

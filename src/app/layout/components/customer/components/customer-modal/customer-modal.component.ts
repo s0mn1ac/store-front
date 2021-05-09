@@ -56,13 +56,13 @@ export class CustomerModalComponent implements OnInit {
     if (this.isNewCustomer) {
       await this.appService.customerService.addCustomer(this.customer).then(() => {
         this.appOnApplyChanges.emit();
-        this.messageService.add({severity: 'success', summary: 'Nuevo registro añadido', detail: "El registro ha sido añadido correctamente a la base de datos"});
+        this.messageService.add({severity: 'success', summary: 'Nuevo registro añadido', detail: 'El registro ha sido añadido correctamente a la base de datos'});
         this.toggleDialog();
       }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
     } else {
       await this.appService.customerService.modifyCustomer(this.customer).then(() => {
         this.appOnApplyChanges.emit();
-        this.messageService.add({severity: 'success', summary: 'Registro actualizado', detail: "El registro ha sido actualizado correctamente"});
+        this.messageService.add({severity: 'success', summary: 'Registro actualizado', detail: 'El registro ha sido actualizado correctamente'});
         this.toggleDialog();
       }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
     }

@@ -5,10 +5,10 @@
         <div class="first-column flex-column">
 
             <h5> Referencia </h5>
-            <p-inputNumber [useGrouping]="false" [(ngModel)]="order.reference" [disabled]="true"></p-inputNumber>
+            <p-inputNumber [min]="0" [useGrouping]="false" [(ngModel)]="order.reference" [disabled]="true"></p-inputNumber>
             
             <h5> Estado </h5>
-            <p-dropdown [options]="status" [(ngModel)]="statusSelected" [autoDisplayFirst]="false" optionLabel="name"></p-dropdown>
+            <p-dropdown [options]="status" [(ngModel)]="statusSelected" [autoDisplayFirst]="false" optionDisabled="disabled" optionLabel="name"></p-dropdown>
 
         </div>
 

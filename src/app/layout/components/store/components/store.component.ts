@@ -27,7 +27,7 @@ export class StoreComponent implements OnInit {
 
   public async deleteStore(store: Store): Promise<void> {
     await this.appService.storeService.deleteStore(store);
-    this.messageService.add({severity: 'info', summary: 'Registro eliminado', detail: "El registro ha sido eliminado correctamente de la base de datos"});
+    this.messageService.add({severity: 'info', summary: 'Registro eliminado', detail: 'El registro ha sido eliminado correctamente de la base de datos'});
     this.getAllStores();
   }
 

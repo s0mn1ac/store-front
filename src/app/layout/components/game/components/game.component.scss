@@ -44,13 +44,17 @@
                         width: 15rem;
                     }
 
+                    &.stock {
+                        width: 10rem;
+                    }
+
                     &.modify {
-                        width: 5rem;
+                        width: 6rem;
                         text-align: center;
                     }
 
                     &.delete {
-                        width: 5rem;
+                        width: 6rem;
                         text-align: center;
                     }
                 }

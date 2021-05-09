@@ -27,7 +27,7 @@ export class GameComponent implements OnInit {
 
   public async deleteGame(game: Game): Promise<void> {
     await this.appService.gameService.deleteGame(game);
-    this.messageService.add({severity: 'info', summary: 'Registro eliminado', detail: "El registro ha sido eliminado correctamente de la base de datos"});
+    this.messageService.add({severity: 'info', summary: 'Registro eliminado', detail: 'El registro ha sido eliminado correctamente de la base de datos'});
     this.getAllGames();
   }
 

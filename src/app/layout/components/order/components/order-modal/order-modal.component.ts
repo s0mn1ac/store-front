@@ -35,9 +35,9 @@ export class OrderModalComponent implements OnInit {
   constructor(private appService: AppService, private messageService: MessageService) {
 
     this.status = [
-      { name: 'Alquiler', status: StatusEnum.RENT, value: 0 },
-      { name: 'Compra', status: StatusEnum.BUY, value: 1 },
-      { name: 'Devolución', status: StatusEnum.RETURN, value: 2 }
+      { name: 'Alquiler', status: StatusEnum.RENT, value: 0, disabled: false },
+      { name: 'Compra', status: StatusEnum.BUY, value: 1, disabled: false },
+      { name: 'Devolución', status: StatusEnum.RETURN, value: 2, disabled: false }
     ];
 
     this.categories = [
@@ -72,6 +72,9 @@ export class OrderModalComponent implements OnInit {
 
     this.order = new Order();
     this.statusSelected = {};
+    this.status.find((status: any) => status.status === StatusEnum.RENT).disabled = false;
+    this.status.find((status: any) => status.status === StatusEnum.BUY).disabled = false;
+    this.status.find((status: any) => status.status === StatusEnum.RETURN).disabled = true;
     this.isNewOrder = true;
     this.toggleDialog();
   }
@@ -89,10 +92,10 @@ export class OrderModalComponent implements OnInit {
     this.order.game = order.game;
     this.order.store = order.store;
 
-    this.statusSelected = this.status.find((status: any) => status.status === order.status);
+    this.statusSelected = this.status.find((status: any) => status.status === StatusEnum.RETURN);
 
     this.isNewOrder = false;
-    this.toggleDialog();
+    this.onClickApply();
   }
 
   public async onClickApply(): Promise<void> {
@@ -105,21 +108,17 @@ export class OrderModalComponent implements OnInit {
     if (this.isNewOrder) {
       await this.appService.orderService.addOrder(this.order).then(() => {
         this.appOnApplyChanges.emit();
-        this.messageService.add({severity: 'success', summary: 'Nuevo registro añadido', detail: "El registro ha sido añadido correctamente a la base de datos"});
+        this.messageService.add({severity: 'success', summary: 'Nuevo registro añadido', detail: 'El registro ha sido añadido correctamente a la base de datos'});
         this.toggleDialog();
       }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
     } else {
       await this.appService.orderService.modifyOrder(this.order).then(() => {
         this.appOnApplyChanges.emit();
-        this.messageService.add({severity: 'success', summary: 'Registro actualizado', detail: "El registro ha sido actualizado correctamente"});
-        this.toggleDialog();
+        this.messageService.add({severity: 'success', summary: 'Registro actualizado', detail: 'El registro ha sido actualizado correctamente'});
       }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
     }
-
-    this.appOnApplyChanges.emit();
-    this.toggleDialog();
   }
-  
+
   public onClickCancel(): void {
     this.toggleDialog();
   }

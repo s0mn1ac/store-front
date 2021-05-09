@@ -108,6 +108,7 @@ export class BaseService {
             game.launch = new Date(reportItem.launch);
             game.pegi = reportItem.pegi;
             game.title = reportItem.title;
+            game.stock = reportItem.stock;
         
             games.push(game);
     
@@ -135,8 +136,6 @@ export class BaseService {
             orders.push(order);
     
         });
-
-        console.log(orders)
     
         return orders;
 

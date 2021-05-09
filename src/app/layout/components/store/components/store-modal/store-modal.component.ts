@@ -47,18 +47,16 @@ export class StoreModalComponent implements OnInit {
     if (this.isNewStore) {
       await this.appService.storeService.addStore(this.store).then(() => {
         this.appOnApplyChanges.emit();
-        this.messageService.add({severity: 'success', summary: 'Nuevo registro añadido', detail: "El registro ha sido añadido correctamente a la base de datos"});
+        this.messageService.add({severity: 'success', summary: 'Nuevo registro añadido', detail: 'El registro ha sido añadido correctamente a la base de datos'});
         this.toggleDialog();
       }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
     } else {
       await this.appService.storeService.modifyStore(this.store).then(() => {
         this.appOnApplyChanges.emit();
-        this.messageService.add({severity: 'success', summary: 'Registro actualizado', detail: "El registro ha sido actualizado correctamente"});
+        this.messageService.add({severity: 'success', summary: 'Registro actualizado', detail: 'El registro ha sido actualizado correctamente'});
         this.toggleDialog();
       }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
     }
-    this.appOnApplyChanges.emit();
-    this.toggleDialog();
   }
   
   public onClickCancel(): void {

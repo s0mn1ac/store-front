@@ -73,6 +73,7 @@ export class GameModalComponent implements OnInit {
     this.game.category = game.category;
     this.game.launch = game.launch;
     this.game.pegi = game.pegi;
+    this.game.stock = game.stock;
     this.game.developers = game.developers;
 
     this.categorySelected = this.categories.find((category: any) => category.category === game.category);
@@ -84,23 +85,21 @@ export class GameModalComponent implements OnInit {
   public async onClickApply(): Promise<void> {
 
     this.game.category = this.categorySelected.value;
+    this.game.stock = this.game.stock ? this.game.stock : 0;
 
     if (this.isNewGame) {
       await this.appService.gameService.addGame(this.game).then(() => {
         this.appOnApplyChanges.emit();
-        this.messageService.add({severity: 'success', summary: 'Nuevo registro añadido', detail: "El registro ha sido añadido correctamente a la base de datos"});
+        this.messageService.add({severity: 'success', summary: 'Nuevo registro añadido', detail: 'El registro ha sido añadido correctamente a la base de datos'});
         this.toggleDialog();
       }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
     } else {
       await this.appService.gameService.modifyGame(this.game).then(() => {
         this.appOnApplyChanges.emit();
-        this.messageService.add({severity: 'success', summary: 'Registro actualizado', detail: "El registro ha sido actualizado correctamente"});
+        this.messageService.add({severity: 'success', summary: 'Registro actualizado', detail: 'El registro ha sido actualizado correctamente'});
         this.toggleDialog();
       }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
     }
-
-    this.appOnApplyChanges.emit();
-    this.toggleDialog();
   }
   
   public onClickCancel(): void {

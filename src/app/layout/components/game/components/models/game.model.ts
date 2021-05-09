@@ -8,6 +8,7 @@ export class Game {
 	launch!: Date;
     pegi!: number;
 	category!: CategoryEnum;
+	stock!: number;
 	developers!: Developer[];
 
 }

@@ -28,6 +28,9 @@
                     <th class="launch">
                         <span> Lanzamiento </span>
                     </th>
+                    <th class="stock">
+                        <span> Stock </span>
+                    </th>
                     <th class="modify">
                         <span> Editar </span>
                     </th>
@@ -54,6 +57,9 @@
                     <td class="launch">
                         <span> {{ game.launch | dateFormat }} </span>
                     </td>
+                    <td class="stock">
+                        <span> {{ game.stock }} </span>
+                    </td>
                     <td class="modify">
                         <button pButton pRipple type="button" icon="pi pi-user-edit" (click)="onClickModifyGame(game)" class="p-button-warning"></button>
                     </td>
@@ -65,7 +71,7 @@
 
             <ng-template pTemplate="emptymessage">
                 <tr>
-                    <td colspan="7"> Aún no hay juegos registrados... </td>
+                    <td colspan="8"> Aún no hay juegos registrados... </td>
                 </tr>
             </ng-template>
 
