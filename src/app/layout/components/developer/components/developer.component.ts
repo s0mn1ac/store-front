@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AppService } from 'src/app/shared/services/common/app.service';
+import { Messages } from 'src/app/shared/utils/messages.config';
 import { Developer } from '../models/developer.model';
 import { DeveloperModalComponent } from './developer-modal/developer-modal.component';
 
@@ -27,7 +28,7 @@ export class DeveloperComponent implements OnInit {
 
   public async deleteDeveloper(developer: Developer): Promise<void> {
     await this.appService.developerService.deleteDeveloper(developer);
-    this.messageService.add({severity: 'info', summary: 'Registro eliminado', detail: 'El registro ha sido eliminado correctamente de la base de datos'});
+    this.messageService.add({severity: 'info', summary: Messages.ITEM_DELETED_TITLE, detail: Messages.ITEM_DELETED});
     this.getAllDevelopers();
   }
 
@@ -41,7 +42,7 @@ export class DeveloperComponent implements OnInit {
   
   public onClickDeleteDeveloper(developer: Developer): void {
     this.confirmationService.confirm({
-      message: '¿Estás seguro de que deseas eliminar el registro seleccionado?',
+      message: Messages.ITEM_DELETE_CONFIRMATION,
       accept: () => {
         this.deleteDeveloper(developer);
       }

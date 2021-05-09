@@ -3,6 +3,7 @@ import { MessageService } from 'primeng/api';
 import { CategoryEnum } from 'src/app/shared/enums/category.enum';
 import { CalendarProperties } from 'src/app/shared/models/calendar-properties.model';
 import { AppService } from 'src/app/shared/services/common/app.service';
+import { Messages } from 'src/app/shared/utils/messages.config';
 import { Developer } from '../../../developer/models/developer.model';
 import { Game } from '../models/game.model';
 
@@ -90,15 +91,15 @@ export class GameModalComponent implements OnInit {
     if (this.isNewGame) {
       await this.appService.gameService.addGame(this.game).then(() => {
         this.appOnApplyChanges.emit();
-        this.messageService.add({severity: 'success', summary: 'Nuevo registro añadido', detail: 'El registro ha sido añadido correctamente a la base de datos'});
+        this.messageService.add({severity: 'success', summary: Messages.ITEM_ADDED_TITLE, detail: Messages.ITEM_ADDED});
         this.toggleDialog();
-      }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
+      }).catch((error) => this.messageService.add({severity: 'error', summary: Messages.ERROR_TITLE, detail: error.error.errorMessage}));
     } else {
       await this.appService.gameService.modifyGame(this.game).then(() => {
         this.appOnApplyChanges.emit();
-        this.messageService.add({severity: 'success', summary: 'Registro actualizado', detail: 'El registro ha sido actualizado correctamente'});
+        this.messageService.add({severity: 'success', summary: Messages.ITEM_MODIFIED_TITLE, detail: Messages.ITEM_MODIFIED});
         this.toggleDialog();
-      }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
+      }).catch((error) => this.messageService.add({severity: 'error', summary: Messages.ERROR_TITLE, detail: error.error.errorMessage}));
     }
   }
   

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AppService } from 'src/app/shared/services/common/app.service';
+import { Messages } from 'src/app/shared/utils/messages.config';
 import { GameModalComponent } from './game-modal/game-modal.component';
 import { Game } from './models/game.model';
 
@@ -27,7 +28,7 @@ export class GameComponent implements OnInit {
 
   public async deleteGame(game: Game): Promise<void> {
     await this.appService.gameService.deleteGame(game);
-    this.messageService.add({severity: 'info', summary: 'Registro eliminado', detail: 'El registro ha sido eliminado correctamente de la base de datos'});
+    this.messageService.add({severity: 'info', summary: Messages.ITEM_DELETED_TITLE, detail: Messages.ITEM_DELETED});
     this.getAllGames();
   }
 
@@ -41,7 +42,7 @@ export class GameComponent implements OnInit {
   
   public onClickDeleteGame(game: Game): void {
     this.confirmationService.confirm({
-      message: '¿Estás seguro de que deseas eliminar el registro seleccionado?',
+      message: Messages.ITEM_DELETE_CONFIRMATION,
       accept: () => {
         this.deleteGame(game);
       }

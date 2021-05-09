@@ -3,6 +3,7 @@ import { MessageService } from 'primeng/api';
 import { CategoryEnum } from 'src/app/shared/enums/category.enum';
 import { StatusEnum } from 'src/app/shared/enums/status.enum';
 import { AppService } from 'src/app/shared/services/common/app.service';
+import { Messages } from 'src/app/shared/utils/messages.config';
 import { Customer } from '../../../customer/models/customer.model';
 import { Game } from '../../../game/components/models/game.model';
 import { Store } from '../../../store/models/store.model';
@@ -108,14 +109,14 @@ export class OrderModalComponent implements OnInit {
     if (this.isNewOrder) {
       await this.appService.orderService.addOrder(this.order).then(() => {
         this.appOnApplyChanges.emit();
-        this.messageService.add({severity: 'success', summary: 'Nuevo registro añadido', detail: 'El registro ha sido añadido correctamente a la base de datos'});
+        this.messageService.add({severity: 'success', summary: Messages.ITEM_ADDED_TITLE, detail: Messages.ITEM_ADDED});
         this.toggleDialog();
-      }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
+      }).catch((error) => this.messageService.add({severity: 'error', summary: Messages.ERROR_TITLE, detail: error.error.errorMessage}));
     } else {
       await this.appService.orderService.modifyOrder(this.order).then(() => {
         this.appOnApplyChanges.emit();
-        this.messageService.add({severity: 'success', summary: 'Registro actualizado', detail: 'El registro ha sido actualizado correctamente'});
-      }).catch((error) => this.messageService.add({severity: 'error', summary: 'Error', detail: error.error.errorMessage}));
+        this.messageService.add({severity: 'info', summary: Messages.ORDER_RETURN_TITLE, detail: Messages.ORDER_RETURN});
+      }).catch((error) => this.messageService.add({severity: 'error', summary: Messages.ERROR_TITLE, detail: error.error.errorMessage}));
     }
   }
 

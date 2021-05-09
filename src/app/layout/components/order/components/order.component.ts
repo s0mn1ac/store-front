@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AppService } from 'src/app/shared/services/common/app.service';
+import { Messages } from 'src/app/shared/utils/messages.config';
 import { Order } from './models/order.model';
 import { OrderModalComponent } from './order-modal/order-modal.component';
 
@@ -25,25 +26,15 @@ export class OrderComponent implements OnInit {
     this.orders = await this.appService.orderService.getAllOrders();
   }
 
-  public async deleteOrder(order: Order): Promise<void> {
-    await this.appService.orderService.deleteOrder(order);
-    this.messageService.add({severity: 'info', summary: 'Registro eliminado', detail: 'El registro ha sido eliminado correctamente de la base de datos'});
-    this.getAllOrders();
-  }
-
   public onClickAddOrder(): void {
     this.orderModal.addOrder();
   }
 
   public onClickModifyOrder(order: Order): void {
-    this.orderModal.modifyOrder(order);
-  }
-  
-  public onClickDeleteOrder(order: Order): void {
     this.confirmationService.confirm({
-      message: '¿Estás seguro de que deseas eliminar el registro seleccionado?',
+      message: Messages.ORDER_RETURN_CONFIRMATION,
       accept: () => {
-        this.deleteOrder(order);
+        this.orderModal.modifyOrder(order);
       }
     });
   }
