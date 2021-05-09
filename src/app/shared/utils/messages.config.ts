@@ -14,4 +14,6 @@ export class Messages {
     public static ITEM_DELETE_CONFIRMATION = '¿Estás seguro de que deseas eliminar el registro seleccionado?';
     public static ORDER_RETURN_CONFIRMATION = '¿Quieres proceder a la devolución del pedido?';
 
+    public static ERROR_UNEXPECTED = 'Ha ocurrido un error inesperado';
+
 }

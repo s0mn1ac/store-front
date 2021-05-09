@@ -50,18 +50,30 @@ export class DeveloperModalComponent implements OnInit {
         this.appOnApplyChanges.emit();
         this.messageService.add({severity: 'success', summary: Messages.ITEM_ADDED_TITLE, detail: Messages.ITEM_ADDED});
         this.toggleDialog();
-      }).catch((error) => this.messageService.add({severity: 'error', summary: Messages.ERROR_TITLE, detail: error.error.errorMessage}));
+      }).catch((error) => this.displayErrors(error));
     } else {
       await this.appService.developerService.modifyDeveloper(this.developer).then(() => {
         this.appOnApplyChanges.emit();
         this.messageService.add({severity: 'success', summary: Messages.ITEM_MODIFIED_TITLE, detail: Messages.ITEM_MODIFIED});
         this.toggleDialog();
-      }).catch((error) => this.messageService.add({severity: 'error', summary: Messages.ERROR_TITLE, detail: error.error.errorMessage}));
+      }).catch((error) => this.displayErrors(error));
     }
   }
   
   public onClickCancel(): void {
     this.toggleDialog();
+  }
+
+  private displayErrors(error: any): void {
+    if (error.error.errorMessage) {
+      this.messageService.add({severity: 'error', summary: Messages.ERROR_TITLE, detail: error.error.errorMessage});
+    } else if (error.error.valids?.length > 0) {
+      error.error.valids?.forEach((validError: string) => {
+        this.messageService.add({severity: 'error', summary: Messages.ERROR_TITLE, detail: validError});
+      });
+    } else {
+      this.messageService.add({severity: 'error', summary: Messages.ERROR_TITLE, detail: Messages.ERROR_UNEXPECTED});
+    }
   }
 
 }
